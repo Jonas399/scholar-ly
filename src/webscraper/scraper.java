@@ -7,13 +7,18 @@ import org.jsoup.nodes.Element;
 public class scraper {
 
 	public static void main(String[] args) {
-	final String url =  "https://de.wikipedia.org/wiki/Wikipedia:Hauptseite";
+	String beginString =  "https://scholar.google.de/scholar?hl=de&as_sdt=0%2C5&q=";
+    String endString =	"&btnG=";
+    
+    String searchTerms = "drone";
+    
+    String url = beginString + searchTerms + endString;
 	try{
 		final Document document = Jsoup.connect(url).get();
 		
 
 		
-		String test = document.selectFirst("p.hauptseite-absatz").text();
+		String test = document.select("div.gs_ab_mdw").text();
 		System.out.println(test); 
 		
 	}catch(Exception e) {
