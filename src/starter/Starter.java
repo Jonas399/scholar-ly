@@ -5,6 +5,8 @@ public class Starter {
 		
 		String a = "Hello";
 		String b = "World";
-		System.out.println(a +" " + b);
+		String c = " ";
+		char d = 0b0100001;
+		System.out.println(a+c+b+d);
 	}
 }
