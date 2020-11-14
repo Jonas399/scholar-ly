@@ -9,7 +9,7 @@ public class LinkBuilder {
 	    String endString =	"&btnG=";
 	    
 	    //replace "" with "+" to ensure right format for link --> multiple terms can be used
-	    searchTerm = searchTerm.replace("", "+");
+	    searchTerm = searchTerm.replace(" ", "+");
 	    
 	    String url = beginString + searchTerm + endString;
 	    
