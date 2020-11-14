@@ -3,6 +3,16 @@
   <groupId>Projektseminar-Programmierung</groupId>
   <artifactId>Projektseminar-Programmierung</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+  	<dependency>
+  		<!-- jsoup HTML parser library @ https://jsoup.org/ -->
+ 		 <groupId>org.jsoup</groupId>
+ 		 <artifactId>jsoup</artifactId>
+ 		 <version>1.13.1</version>
+	</dependency>
+  </dependencies>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
