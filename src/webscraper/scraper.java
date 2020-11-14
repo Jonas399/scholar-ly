@@ -11,7 +11,7 @@ public class scraper {
 		
 		LinkBuilder linkBuilder = new LinkBuilder();
 		
-		String url = linkBuilder.buildLink("drone");
+		String url = linkBuilder.buildLink("natural AND disaster");
 		
 		try{
 			final Document document = Jsoup.connect(url).get();
