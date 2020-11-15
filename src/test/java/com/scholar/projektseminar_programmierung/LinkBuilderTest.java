@@ -10,7 +10,7 @@ class LinkBuilderTest {
 	
 	@Test
 	void testIfLinkGetsCreatedCorrectly() {
-		assertEquals("https://scholar.google.de/scholar?hl=de&as_sdt=0%2C5&q=natural+AND+disaster&btnG=", linkBuilderTest.buildLink("natural AND disaster"));
+		assertEquals("https://scholar.google.de/scholar?hl=de&as_sdt=0%2C5&q=natural+AND+disaster&hl=de&as_sdt=0%2C5&as_ylo=&as_yhi=", linkBuilderTest.buildLink("natural AND disaster",0,0));
 	}
 
 }
