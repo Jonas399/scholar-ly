@@ -32,7 +32,7 @@ public class Scraper {
 	public static int getAmountOfHits(String searchTerm) {
 		LinkBuilder linkBuilder = new LinkBuilder();
 		
-		String url = linkBuilder.buildLink(searchTerm);
+		String url = linkBuilder.buildLink(searchTerm,0,0);
 		int hits = 0;
 		
 		try{
