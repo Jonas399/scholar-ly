@@ -1,4 +1,4 @@
-package webscraper;
+package com.scholar.projektseminar_programmierung;
 
 
 public class LinkBuilder {

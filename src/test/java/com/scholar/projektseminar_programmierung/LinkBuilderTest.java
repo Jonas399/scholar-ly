@@ -1,4 +1,4 @@
-package webscraper;
+package com.scholar.projektseminar_programmierung;
 
 import static org.junit.jupiter.api.Assertions.*;
 
