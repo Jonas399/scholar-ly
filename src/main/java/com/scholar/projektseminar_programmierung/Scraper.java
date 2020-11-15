@@ -1,4 +1,4 @@
-package webscraper;
+package com.scholar.projektseminar_programmierung;
 
 import java.util.regex.PatternSyntaxException;
 
@@ -6,7 +6,7 @@ import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class scraper {
+public class Scraper {
 	
 	public static int results(String text_results) {
 		int result = -1;
