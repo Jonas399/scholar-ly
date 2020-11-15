@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.scholar.projektseminar_programmierung.Scraper;
+import com.scholar.projektseminar_programmierung.Search;
 
 
 
@@ -37,13 +38,16 @@ public class Result {
 	public Result(String term) {
 		super();
 		this.term=term;
-		this.hits=Scraper.getAmountOfHits(term);
+		Search temp = new Search(term);
+		this.hits=temp.getHits();
 	}
+	
 	
 	public Result(String term, int year_begin, int year_end, String metadata) {
 		super();
 		this.term = term;
-		this.hits = Scraper.getAmountOfHits(term);
+		Search temp = new Search(term,year_begin,year_end);
+		this.hits=temp.getHits();
 		this.year_begin = year_begin;
 		this.year_end = year_end;
 		this.metadata = metadata;

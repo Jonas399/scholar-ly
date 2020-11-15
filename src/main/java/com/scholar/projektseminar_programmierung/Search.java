@@ -11,6 +11,12 @@ public class Search {
 	private int year_end;
 	private int hits;
 	
+	public Search(String term) {
+		super();
+		this.term=term;
+		this.hits=this.extractHits(this.getSearchMeta(this.term));
+	}
+	
 	public Search(String term, int year_begin, int year_end) {
 		super();
 		this.term = term;
@@ -19,9 +25,6 @@ public class Search {
 		this.hits = this.extractHits(this.getSearchMeta(this.term));
 	}
 	
-	public void performSearch() {
-		this.hits=this.extractHits(this.getSearchMeta(this.term));
-	}
 	
 	public int extractHits(String scholar_div) {
 		int result = -1;
@@ -49,9 +52,13 @@ public class Search {
 		}
 	}
 	
+	public int getHits() {
+		return this.hits;
+	}
+	
 	
 	public static void main(String[] args) {
-		Search s1 = new Search("uav",0,0);
+		Search s1 = new Search("uav",0,2016);
 		System.out.println(s1.hits);
 	}
 }
