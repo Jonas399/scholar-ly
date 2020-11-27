@@ -26,6 +26,9 @@ public class Result {
 	@Column(name="hits")
 	private int hits;
 	
+	@Column(name="hitsPerYear")
+	private int[] hitsPerYear;
+	
 	@Column(name="year_begin")
 	private int year_begin;
 	
@@ -50,8 +53,10 @@ public class Result {
 		this.hits=temp.getHits();
 		this.year_begin = year_begin;
 		this.year_end = year_end;
+		this.hitsPerYear = temp.getHitsPerYear();
 		this.metadata = metadata;
 	}
+	
 	public long getId() {
 		return id;
 	}
@@ -70,6 +75,16 @@ public class Result {
 	public void setHits(int hits) {
 		this.hits = hits;
 	}
+	
+	public int[] getHitsPerYear() {
+		return hitsPerYear;
+	}
+
+
+	public void setHitsPerYear(int[] hitsPerYear) {
+		this.hitsPerYear = hitsPerYear;
+	}
+	
 	public int getYear_begin() {
 		return year_begin;
 	}
