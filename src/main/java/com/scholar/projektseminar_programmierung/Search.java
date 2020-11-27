@@ -1,6 +1,13 @@
 package com.scholar.projektseminar_programmierung;
 
 import java.util.regex.PatternSyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,6 +17,7 @@ public class Search {
 	private int year_begin;
 	private int year_end;
 	private int hits;
+	private boolean isSubSearch;
 	
 	public Search(String term) {
 		super();
@@ -23,6 +31,9 @@ public class Search {
 		this.year_begin = year_begin;
 		this.year_end = year_end;
 		this.hits = this.extractHits(this.getSearchMeta(this.term));
+		if(isSubSearch = false) {
+			this.createCSV();
+		}
 	}
 	
 	
@@ -56,8 +67,30 @@ public class Search {
 		return this.hits;
 	}
 	
-	
-	public static void main(String[] args) {
+	public void createCSV(){
+		try {
+			String csvFile = "/Users/svene/Desktop/Programmierprojekt/Projekt/test3.csv";
+			FileWriter writer = new FileWriter(csvFile);
+		
+			List<Search> search = Arrays.asList(new Search(term,year_end, hits));
+			
+			CSVUtils.writeLine(writer, Arrays.asList("Search term", "Year", "Hits"));
+			for (Search s : search) {
+				List<String> list = new ArrayList<>();
+				list.add(term);
+				list.add(Integer.toString(year_end));
+				list.add(Integer.toString(hits));
+            
+				CSVUtils.writeLine(writer, list);
+			}
+			writer.flush();
+			writer.close();
+		} catch(Exception e) {
+			System.out.println("Error 404");
+		}
+	}
+
+	public static void main(String[] args) throws IOException{
 		Search s1 = new Search("uav",0,2016);
 		System.out.println(s1.hits);
 	}
