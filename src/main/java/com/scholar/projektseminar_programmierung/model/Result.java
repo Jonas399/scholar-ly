@@ -37,6 +37,10 @@ public class Result {
 	
 	@Column(name="metadata")
 	private String metadata;
+	
+	public Result() {
+		super();
+	}
 	 
 	public Result(String term) {
 		super();
