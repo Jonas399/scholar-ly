@@ -4,11 +4,13 @@ import java.util.Random;
 import java.util.regex.PatternSyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,13 +21,18 @@ public class Search {
 	private int year_end;
 	private int hits;
 	private int[] hitsPerYear;
-  private boolean isSubSearch;
+	private boolean isSubSearch;
+	private String timeStamp;
+	
 	
 	public Search(String term) {
 		super();
 		this.term=term;
+		this.searchInfo();
 		this.hits=this.extractHits(this.getSearchMeta(this.term,this.year_begin,this.year_end));
 		this.performSubSearching();
+		this.timeStamp = this.initTime("yyyy.MM.dd");
+		this.buildCSV();
 	}
 	
 	public Search(String term, int year_begin, int year_end) {
@@ -33,11 +40,11 @@ public class Search {
 		this.term = term;
 		this.year_begin = year_begin;
 		this.year_end = year_end;
-		if(isSubSearch = false) {
-			this.createCSV();
-		}
+		this.searchInfo();
 		this.hits = this.extractHits(this.getSearchMeta(this.term,this.year_begin,this.year_end));
 		this.performSubSearching();
+		this.timeStamp = this.initTime("yyyy.MM.dd");
+		this.buildCSV();
 	}
 	
 	public Search(String term, int year_begin, int year_end, boolean isSubSearch) {
@@ -46,11 +53,17 @@ public class Search {
 		this.year_begin = year_begin;
 		this.year_end = year_end;
 		this.isSubSearch = isSubSearch;
+		this.searchInfo();
 		this.hits = this.extractHits(this.getSearchMeta(this.term,this.year_begin,this.year_end));
 		this.performSubSearching();
-		
+		this.timeStamp = this.initTime("yyyy.MM.dd");
+		this.buildCSV();
 	}
 	
+	public String initTime(String format) {
+		String timeStamp = new SimpleDateFormat(format).format(new Date()); 
+		return timeStamp;
+	}
 	
 	public int[] initArray(int year_begin, int year_end) {
 		int difference = year_end - year_begin + 1;
@@ -58,12 +71,27 @@ public class Search {
 		return tempInt;
 	}
 	
+	public void searchInfo() {
+		if(!this.isSubSearch()) {
+			System.out.println("Starting search...");
+			System.out.println("Term: "+this.getTerm()+"; YearBegin: "+this.getYear_begin()+"; YearEnd: "+this.getYear_end()+";");
+		}
+	}
+	
+	public void buildCSV() {
+		if(!this.isSubSearch()) {
+			CSVBuilder csv = new CSVBuilder(this);
+			csv.print();
+		}	
+	}
+	
 	public void performSubSearching() {
-		if(!this.isSubSearch) {
+		if(!this.isSubSearch()) {
 			System.out.println("Starting Subsearch...");
 			this.hitsPerYear = this.initArray(this.year_begin,this.year_end);
 			for(int i = this.year_end; i>=this.year_begin; i-- ) {
 				this.hitsPerYear[this.year_end-i] = this.getSubSearchHits(this.term, i);
+				System.out.println("Hits for "+i+": "+this.hitsPerYear[this.year_end-i]);
 			}
 		}
 	}
@@ -88,9 +116,12 @@ public class Search {
 	public String getSearchMeta(String term, int year_begin, int year_end) {
 		LinkBuilder linkBuilder = new LinkBuilder();
 		String url = linkBuilder.buildLink(term,year_begin,year_end);
+		
+		//To circumvent scraper detection we need a random sleep timer (5-35 seconds)
 		Random waitTimer = new Random();
-		int wait = waitTimer.nextInt(5)+1;
+		int wait = waitTimer.nextInt(30)+5;
 		System.out.println("Wait " + wait + " seconds before next scrape.");
+		
 		try{
 			Thread.sleep(wait*1000);
 			final Document document = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36").get();
@@ -107,28 +138,6 @@ public class Search {
 		return this.hits;
 	}
   
-	public void createCSV(){
-		try {
-			String csvFile = "/Users/svene/Desktop/Programmierprojekt/Projekt/test3.csv";
-			FileWriter writer = new FileWriter(csvFile);
-		
-			List<Search> search = Arrays.asList(new Search(term,year_end, hits));
-			
-			CSVUtils.writeLine(writer, Arrays.asList("Search term", "Year", "Hits"));
-			for (Search s : search) {
-				List<String> list = new ArrayList<>();
-				list.add(term);
-				list.add(Integer.toString(year_end));
-				list.add(Integer.toString(hits));
-            
-				CSVUtils.writeLine(writer, list);
-			}
-			writer.flush();
-			writer.close();
-		} catch(Exception e) {
-			System.out.println("Error 404");
-		}
-	}
 
 	public int[] getHitsPerYear() {
 		return hitsPerYear;
@@ -138,11 +147,53 @@ public class Search {
 		this.hitsPerYear = hitsPerYear;
 	}
 	
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public int getYear_begin() {
+		return year_begin;
+	}
+
+	public void setYear_begin(int year_begin) {
+		this.year_begin = year_begin;
+	}
+
+	public int getYear_end() {
+		return year_end;
+	}
+
+	public void setYear_end(int year_end) {
+		this.year_end = year_end;
+	}
+
+	public boolean isSubSearch() {
+		return isSubSearch;
+	}
+
+	public void setSubSearch(boolean isSubSearch) {
+		this.isSubSearch = isSubSearch;
+	}
+
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimestamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+	
 	public static void main(String[] args) {
-		Search s1 = new Search("machine learning",2015,2016);
-		System.out.println(s1.getHits());
-		for(int i : s1.hitsPerYear) {
-			System.out.print(i+", ");
-		}
+		Search s1 = new Search("machine learning",2000,2020);
+
+		
 	}
 }
