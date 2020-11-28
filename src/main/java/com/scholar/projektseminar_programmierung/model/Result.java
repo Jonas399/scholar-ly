@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.scholar.projektseminar_programmierung.Scraper;
+
 import com.scholar.projektseminar_programmierung.Search;
 
 
