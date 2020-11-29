@@ -7,6 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.PersistenceConstructor;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scholar.projektseminar_programmierung.CompactSearch;
 
 
@@ -19,7 +23,7 @@ public class Result {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name="search_term")
+	@Column(name="term")
 	private String term;
 	
 	
@@ -32,21 +36,23 @@ public class Result {
 	@Column(name="year_end")
 	private int year_end;
 	
-	 
-	public Result(String term) {
+	public Result() {
 		super();
+		System.out.println("Default Constructor");
+		
 	}
 	
-	
-	public Result(String term, int year_begin, int year_end,String key) {
-		super();
-		this.term = term;
-		CompactSearch temp = new CompactSearch(term,year_begin,year_end,key);
-		this.year_begin = year_begin;
-		this.year_end = year_end;
-		this.hitsPerYear = temp.getHitsPerYear();
+	@JsonCreator
+	public Result(@JsonProperty("term") String term, @JsonProperty("year_begin") int year_begin, @JsonProperty("year_end") int year_end, @JsonProperty("key") String key) {
+	    System.out.println("n-args");
+	    CompactSearch temp = new CompactSearch(term,year_begin,year_end, key);
+	    this.term = temp.getTerm();
+	    this.year_begin = temp.getYear_begin();
+	    this.year_end = temp.getYear_end();
+	    this.hitsPerYear = temp.getHitsPerYear();
 	}
 	
+
 	public long getId() {
 		return id;
 	}
