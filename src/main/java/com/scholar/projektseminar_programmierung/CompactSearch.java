@@ -64,11 +64,8 @@ public class CompactSearch {
 		this.apiKey = apiKey;
 	}
 	
-	public CompactSearch() {
-		super();
-	}
 	
-	public CompactSearch(String term, int year_begin, int year_end, String apiKey) {
+	public CompactSearch(String term, int year_begin, int year_end, String key) {
 		super();
 		this.term = term;
 		this.year_begin = year_begin;
@@ -76,8 +73,8 @@ public class CompactSearch {
 		this.timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
 		System.out.println(timeStamp +": New Search");
 		System.out.println("Term: "+this.getTerm()+"; YearBegin: "+this.getYear_begin()+"; YearEnd: "+this.getYear_end()+";");
-		this.client = this.initClient(apiKey);
-		this.apiKey = apiKey;
+		this.client = this.initClient(key);
+		//this.apiKey = apiKey;
 		this.performSubSearches();
 		this.buildCSV();
 	}

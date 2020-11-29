@@ -22,8 +22,6 @@ public class Result {
 	@Column(name="search_term")
 	private String term;
 	
-	@Column(name="key")
-	private String key;
 	
 	@Column(name="hitsPerYear")
 	private int[] hitsPerYear;
@@ -34,29 +32,19 @@ public class Result {
 	@Column(name="year_end")
 	private int year_end;
 	
-	public Result() {
-		super();
-	}
 	 
-	public Result(String term, String key) {
+	public Result(String term) {
 		super();
-		this.term=term;
-		this.key=key;
-		CompactSearch tempSearch = new CompactSearch(term,0,2020,key);
-		this.hitsPerYear = tempSearch.getHitsPerYear();
-		this.year_begin = tempSearch.getYear_begin();
-		this.year_end = tempSearch.getYear_end();
 	}
 	
 	
-	public Result(String term, int year_begin, int year_end, String key) {
+	public Result(String term, int year_begin, int year_end,String key) {
 		super();
 		this.term = term;
-		this.key=key;
-		CompactSearch tempSearch = new CompactSearch(term,year_begin,year_end,key);
-		this.hitsPerYear = tempSearch.getHitsPerYear();
-		this.year_begin = tempSearch.getYear_begin();
-		this.year_end = tempSearch.getYear_end();
+		CompactSearch temp = new CompactSearch(term,year_begin,year_end,key);
+		this.year_begin = year_begin;
+		this.year_end = year_end;
+		this.hitsPerYear = temp.getHitsPerYear();
 	}
 	
 	public long getId() {
@@ -71,6 +59,7 @@ public class Result {
 	public void setTerm(String term) {
 		this.term = term;
 	}
+
 	
 	public int[] getHitsPerYear() {
 		return hitsPerYear;
@@ -93,6 +82,8 @@ public class Result {
 	public void setYear_end(int year_end) {
 		this.year_end = year_end;
 	}
+
+	
 
 	
 	
