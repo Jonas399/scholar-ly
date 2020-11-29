@@ -19,11 +19,9 @@ $(document).ready(function() {
 
 					{"data": "id" },
 					{"data": "term" },
-					{"data": "hits" },
 					{"data": "hitsPerYear" },
-					{"data": "year_end" },
-					{"data": "year_end" },
-					{"data": "metadata" },
+					{"data": "year_begin" },
+					{"data": "year_end" }
 				]
 			}); 
 		}
