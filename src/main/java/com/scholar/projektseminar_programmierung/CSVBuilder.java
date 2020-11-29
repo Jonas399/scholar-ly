@@ -10,10 +10,10 @@ import java.util.List;
 
 public class CSVBuilder {
 	private String fileName;
-	private Search search;
+	private CompactSearch search;
 	
 	
-	public CSVBuilder(Search search) {
+	public CSVBuilder(CompactSearch search) {
 		this.fileName = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date());
 		this.search = search;
 	}
@@ -28,9 +28,6 @@ public class CSVBuilder {
 			//create file to know path (FileWriter doesnt have method getAbsolutePath())
 			File f = new File(tempPath);
 			FileWriter writer = new FileWriter(tempPath);
-			
-			
-			List<Search> searchList = Arrays.asList(this.search);
 			
 			//Write Metadata
 			CSVUtils.writeLine(writer, Arrays.asList("SearchTerm", "YearBegin", "YearEnd", "Date"));

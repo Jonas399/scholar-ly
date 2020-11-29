@@ -7,8 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-import com.scholar.projektseminar_programmierung.Search;
+import com.scholar.projektseminar_programmierung.CompactSearch;
 
 
 
@@ -23,8 +22,8 @@ public class Result {
 	@Column(name="search_term")
 	private String term;
 	
-	@Column(name="hits")
-	private int hits;
+	@Column(name="key")
+	private String key;
 	
 	@Column(name="hitsPerYear")
 	private int[] hitsPerYear;
@@ -35,30 +34,29 @@ public class Result {
 	@Column(name="year_end")
 	private int year_end;
 	
-	@Column(name="metadata")
-	private String metadata;
-	
 	public Result() {
 		super();
 	}
 	 
-	public Result(String term) {
+	public Result(String term, String key) {
 		super();
 		this.term=term;
-		Search temp = new Search(term);
-		this.hits=temp.getHits();
+		this.key=key;
+		CompactSearch tempSearch = new CompactSearch(term,0,2020,key);
+		this.hitsPerYear = tempSearch.getHitsPerYear();
+		this.year_begin = tempSearch.getYear_begin();
+		this.year_end = tempSearch.getYear_end();
 	}
 	
 	
-	public Result(String term, int year_begin, int year_end, String metadata) {
+	public Result(String term, int year_begin, int year_end, String key) {
 		super();
 		this.term = term;
-		Search temp = new Search(term,year_begin,year_end);
-		this.hits=temp.getHits();
-		this.year_begin = year_begin;
-		this.year_end = year_end;
-		this.hitsPerYear = temp.getHitsPerYear();
-		this.metadata = metadata;
+		this.key=key;
+		CompactSearch tempSearch = new CompactSearch(term,year_begin,year_end,key);
+		this.hitsPerYear = tempSearch.getHitsPerYear();
+		this.year_begin = tempSearch.getYear_begin();
+		this.year_end = tempSearch.getYear_end();
 	}
 	
 	public long getId() {
@@ -72,12 +70,6 @@ public class Result {
 	}
 	public void setTerm(String term) {
 		this.term = term;
-	}
-	public int getHits() {
-		return hits;
-	}
-	public void setHits(int hits) {
-		this.hits = hits;
 	}
 	
 	public int[] getHitsPerYear() {
@@ -101,12 +93,7 @@ public class Result {
 	public void setYear_end(int year_end) {
 		this.year_end = year_end;
 	}
-	public String getMetadata() {
-		return metadata;
-	}
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
-	}
+
 	
 	
 }
