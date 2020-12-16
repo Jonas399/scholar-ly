@@ -94,11 +94,11 @@ public class CompactSearch {
 		long wait = waitTimer.nextInt(10)+5;
 		
 		try  {
-			System.out.println("Delaying search by " + wait + " seconds to avoid bot detection.");
-			Thread.sleep(wait*1000);
+			//System.out.println("Delaying search by " + wait + " seconds to avoid bot detection.");
+			//Thread.sleep(wait*1000);
 			Unirest.config().reset();
-			String html = this.client.get(url).result();
-			final Document doc = Jsoup.parse(html);
+			String html = this.client.get(url+"&country_code=us").result();
+			Document doc = Jsoup.parse(html);
 			String scholarHits = doc.select("div.gs_ab_mdw").text();
 			return scholarHits;
 		} catch(Exception e) {
@@ -136,7 +136,7 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("machine learning",2015,2020,"240327b0521b2438b20eeefe95e62f4e");		
+		CompactSearch s1 = new CompactSearch("kernel",2019,2020,"240327b0521b2438b20eeefe95e62f4e");		
 	}
 	
 }
