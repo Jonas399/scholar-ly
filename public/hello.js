@@ -1,7 +1,19 @@
 var editor;
 
+$(document).ajaxStart(function() {
+	$( ".log" ).text( "Triggered ajaxStart handler." );	
+	$("#loading").show();
+  });
+
+$( document ).ajaxStop(function() {
+	$("#loading").hide();
+  });
+
 $(document).ready(function() {
+	
 	loadDatatables();
+
+	
 
 	 // process the form
 	 $('form').submit(function(event) {
@@ -22,16 +34,24 @@ $(document).ready(function() {
 			url         : '/api/v1/results', // the url where we want to POST
             data        : JSON.stringify(formData), // our data object
 			dataType    : 'json', // what type of data do we expect back from the server
-            encode          : true
+			encode          : true,
+
+			success: function( data, textStatus, jQxhr ){
+				loadDatatables();
+			},
+			error: function( jqXhr, textStatus, errorThrown ){
+				console.log(errorThrown);
+			}
+
         })
             // using the done promise callback
-            .done(function(data) {
+            /*.done(function(data) {
 
                 // log data to the console so we can see
                 console.log(data);
-
+				loadDatatables();
                 // here we will handle errors and validation messages
-            });
+            });*/
 
         // stop the form from submitting the normal way and refreshing the page
         event.preventDefault();
@@ -52,6 +72,7 @@ function loadDatatables() {
 		success: function (data){
 
 			$('#targetTable').DataTable( {
+				destroy: true, 
 				dom: 'Bfrtip',  
 				buttons: [
 					'csv','pdf'

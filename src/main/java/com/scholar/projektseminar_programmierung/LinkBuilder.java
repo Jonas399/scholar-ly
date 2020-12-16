@@ -26,4 +26,10 @@ public class LinkBuilder {
 	    
 	    return url;
 	}
+	
+	public static void main(String args[]) {
+		LinkBuilder b1 = new LinkBuilder();
+		System.out.println(b1.buildLink("kernel", 2019, 2019));
+		
+	}
 }
