@@ -12,6 +12,40 @@
     
 </head>
 <body>
+    
+    <form id="newSearch">
+         <!-- Search -->
+         <div id="name-group" class="form-group">
+            <label for="term">Term</label>
+            <input type="text" class="form-control" name="term" placeholder="">
+            <!-- errors will go here -->
+        </div>
+
+        <!-- year_begin -->
+        <div id="email-group" class="form-group">
+            <label for="year_begin">Year_Begin</label>
+            <input type="number" class="form-control" name="year_begin" placeholder="">
+            <!-- errors will go here -->
+        </div>
+
+        <!-- year_end -->
+        <div id="superhero-group" class="form-group">
+            <label for="year_end">Year_End</label>
+            <input type="number" class="form-control" name="year_end" placeholder="">
+            <!-- errors will go here -->
+        </div>
+
+         <!-- ScraperAPIKey -->
+         <div id="superhero-group" class="form-group">
+            <label for="key">ScraperAPI-Key</label>
+            <input type="text" class="form-control" name="key" placeholder="">
+            <!-- errors will go here -->
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit <span class="fa fa-arrow-right"></span></button>
+
+    </form>
+    
     <table id="targetTable" class="table table-striped">
         <thead>
             <tr>

@@ -38,7 +38,7 @@ public class Result {
 	
 	public Result() {
 		super();
-		System.out.println("Default Constructor");
+		System.out.println("Called default constructor");
 		
 	}
 	
