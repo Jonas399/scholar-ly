@@ -43,6 +43,7 @@ public class ResultController {
 	//save result
 	@PostMapping("results")
 	public Result createResult(@RequestBody Result result) {
+		System.out.println("Preparing to save result");
 		return this.resultRepository.save(result);
 	}
 	
