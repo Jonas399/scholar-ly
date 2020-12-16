@@ -20,8 +20,8 @@ $(document).ready(function() {
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
 			contentType	: 'application/json',
 			url         : '/api/v1/results', // the url where we want to POST
-            data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
+            data        : JSON.stringify(formData), // our data object
+			dataType    : 'json', // what type of data do we expect back from the server
             encode          : true
         })
             // using the done promise callback
