@@ -51,7 +51,14 @@
  			 <artifactId>sdk</artifactId>
   			<version>1.1</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.apache.derby</groupId>
+    		<artifactId>derby</artifactId>
+    		<scope>runtime</scope>
+		</dependency>
 				
+		
 	</dependencies>
 
 	<build>
