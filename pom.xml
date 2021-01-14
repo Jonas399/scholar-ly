@@ -61,7 +61,7 @@
 		
 	</dependencies>
 
-	<build>
+	<build>	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -70,11 +70,19 @@
         			<execution>
            				 <configuration>
                				 <mainClass>com.baeldung.webjar.WebjarsdemoApplication</mainClass>
+							 <outputDirectory>${basedir}/target/public</outputDirectory>
+								<resources>
+									<resource>
+										<directory>public</directory>
+										<filtering>true</filtering>
+									</resource>
+								</resources>
             			</configuration>
         			</execution>
    				</executions>
 			</plugin>
 		</plugins>
+	
 	</build>
-
+	
 </project>
