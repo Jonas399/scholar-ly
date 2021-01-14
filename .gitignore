@@ -42,3 +42,6 @@ derby.log
 
 ### Scrape Debugging ###
 scrape.html
+
+### Big OOf ###
+/bin/*
