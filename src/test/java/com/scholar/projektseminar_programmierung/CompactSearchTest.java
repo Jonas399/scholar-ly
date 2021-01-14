@@ -34,6 +34,20 @@ class CompactSearchTest {
 		
 		assertEquals(0, cs.extractHits("Keine ergebnisse"));
 	}
+	
+	@Test
+	void testIfLenghtOfSubSearchArrayIsCorrect() {
+		CompactSearch cs = new CompactSearch("natural AND disaster", 2015, 2016, "240327b0521b2438b20eeefe95e62f4e");
+		
+		assertEquals(2, cs.getHitsPerYear().length);
+	}
+	
+	/*INFO: method scrapeScholarHits not testable, due to inconsistency of google scholar data scrape
+	@Test
+	void testIfContentsOfSubSearchArrayAreCorrect() {
+		CompactSearch cs = new CompactSearch("natural AND disaster", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
+			
+	}*/
 }
 
 
