@@ -86,9 +86,11 @@ public class CompactSearch {
 		return tempClient;
 	}
 	
-	public String scrapeScholarHits(String term, int year_begin, int year_end) {
-		LinkBuilder linkBuilder = new LinkBuilder();
-		String url = linkBuilder.buildLink(term,year_begin,year_end);
+	static LinkBuilder linkBuilder = new LinkBuilder();
+	
+	public String scrapeScholarHits(String term, int year_begin, int year_end, LinkBuilder lb) {
+		
+		String url = lb.buildLink(term,year_begin,year_end);
 		
 		Random waitTimer = new Random();
 		long wait = waitTimer.nextInt(10)+5;
@@ -110,7 +112,10 @@ public class CompactSearch {
 		int result = -1;
 		try {
 			String[] splitArray = scholarHits.split("\\s+");
-			String temp = splitArray[3].replace(".","");
+			String temp = "0";
+			if(splitArray.length >= 4) {
+			temp = splitArray[3].replace(".","");
+			}
 			result = Integer.parseInt(temp);
 			return result;
 		} catch (PatternSyntaxException ex) {
@@ -125,7 +130,7 @@ public class CompactSearch {
 		this.hitsPerYear = tempInt;
 		for(int i = this.year_end; i>=this.year_begin; i--) {
 			int arrIdx = this.year_end-i;
-			this.hitsPerYear[arrIdx] = this.extractHits(scrapeScholarHits(this.term,i,i));
+			this.hitsPerYear[arrIdx] = this.extractHits(scrapeScholarHits(this.term,i,i,linkBuilder));
 			System.out.println("Hits for "+i+": "+this.hitsPerYear[arrIdx]);
 		}
 	}
@@ -136,7 +141,7 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("kernel",2019,2020,"240327b0521b2438b20eeefe95e62f4e");		
+		CompactSearch s1 = new CompactSearch("asdfjkdhsgkjahsdgla",2019,2020,"240327b0521b2438b20eeefe95e62f4e");		
 	}
 	
 }
