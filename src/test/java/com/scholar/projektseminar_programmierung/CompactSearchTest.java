@@ -1,11 +1,7 @@
 package com.scholar.projektseminar_programmierung;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -36,7 +32,7 @@ class CompactSearchTest {
 	void testIfExtractedHitsAreCorrect_IfNoResultsAreFound() {
 		CompactSearch cs = new CompactSearch("asdfjkdhsgkjahsdgla", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
 		
-		assertEquals(106000, cs.extractHits("Artikel Scholar Ungefähr 106.000 Ergebnisse (0,03 Sek.)"));
+		assertEquals(0, cs.extractHits("Keine ergebnisse"));
 	}
 }
 
