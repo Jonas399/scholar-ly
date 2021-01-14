@@ -35,3 +35,10 @@ build/
 
 ### CSV Output ###
 .csv
+
+### Apache DerbyDB ###
+/mydb/*
+derby.log
+
+### Scrape Debugging ###
+scrape.html
