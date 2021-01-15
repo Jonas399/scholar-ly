@@ -134,13 +134,14 @@ $(document).ready(function() {
 
 
 	//Delete Button in Datatables
-	$('#targetTable tbody').on('click', '.delete', function () {
+	$('#targetTable tbody').on('click', '.delete', function (event) {
 		var row = $(this).closest('tr');
 
 		var id = table.row( row ).data().id;
 		var url = 'api/v1/results/'+id;
 		console.log(url);
 		deleteEntry(url);
+		event.stopPropagation(); //So we don't "also" click on the table column
 
 	});
 
