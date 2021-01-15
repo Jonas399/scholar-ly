@@ -33,3 +33,19 @@
 	background-color: #4CAF50;
 	color: white;
 }
+
+.center {
+	margin: auto;
+	margin-top: 20px;
+	width: 50%;
+	/*border: 3px solid;*/
+	padding: 10px;
+}
+
+.datat {
+	margin: auto;
+	margin-top: 20px;
+	width: 70%;
+	/*border: 3px solid;*/
+	padding: 10px;
+}
