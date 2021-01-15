@@ -59,6 +59,22 @@ $(document).ready(function() {
 	});
 
 
+	$('.topnav').on('click', '#quit',function () {
+		console.log("Quitting...");
+		$.ajax({
+			url: 'actuator/shutdown',
+			type: 'POST',
+			success: function ()
+			{
+				console.log("Shutdown completed.");
+				document.write('<html><body><pre>Your server has been shut down.</pre></body></html>');
+				document.close();
+			}
+		});
+
+	});
+
+
 	$('#targetTable tbody').on('click', '.delete', function () {
 		var row = $(this).closest('tr');
 
@@ -89,7 +105,7 @@ function loadDatatables() {
 		dataType: 'json',
 		success: function (data){
 
-		table =	$('#targetTable').DataTable( {
+			table =	$('#targetTable').DataTable( {
 				destroy: true, 
 				dom: 'Bfrtip',  
 				buttons: [
