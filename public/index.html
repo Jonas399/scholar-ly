@@ -10,10 +10,11 @@
 		<title></title>
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap.min.css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+		<script type="text/javasrcipt" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script> 
 		<script type="text/javascript" src="hello.js"></script>
 
 	</head>
@@ -58,25 +59,37 @@
 
 			</form>
 		</div>
-		<div id="loading">
-			loading
+
+		<table id="targetTable" class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Term</th>
+					<th>HitsPerYear</th>
+					<th>Year_Begin</th>
+					<th>Year_End</th>
+					<th>Date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="list-list"></tbody>
+		</table>    
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<h4>Detailed Search Info</h4>
+				<div></div>
+			</div>
 		</div>
 
-		<div class="datat">
-			<table id="targetTable" class="table table-striped">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>Term</th>
-						<th>HitsPerYear</th>
-						<th>Year_Begin</th>
-						<th>Year_End</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody id="list-list"></tbody>
-			</table>    
+		<div id="loading" class="modal">
+			<div class="modal-content">
+				<h4>Loading...</h4>
+				<div></div>
+			</div>
 		</div>
+
 
 	</body>
 </html>
