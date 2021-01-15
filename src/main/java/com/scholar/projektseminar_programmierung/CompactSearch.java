@@ -1,5 +1,6 @@
 package com.scholar.projektseminar_programmierung;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -100,6 +101,12 @@ public class CompactSearch {
 			//Thread.sleep(wait*1000);
 			Unirest.config().reset();
 			String html = this.client.get(url+"&country_code=us").result();
+			
+			//Debugging: Print String to file so we can see what was scraped:
+			PrintWriter out = new PrintWriter("scrape.html");
+			out.println(html);
+			out.close();
+			
 			Document doc = Jsoup.parse(html);
 			String scholarHits = doc.select("div.gs_ab_mdw").text();
 			return scholarHits;

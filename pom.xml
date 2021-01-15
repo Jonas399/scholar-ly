@@ -51,10 +51,23 @@
  			 <artifactId>sdk</artifactId>
   			<version>1.1</version>
 		</dependency>
+		
+		<dependency>
+    		<groupId>org.apache.derby</groupId>
+    		<artifactId>derby</artifactId>
+    		<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+    		<!-- Actuator to Shutdown Server via HTTP Request -->
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 				
+		
 	</dependencies>
 
-	<build>
+	<build>	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -63,11 +76,19 @@
         			<execution>
            				 <configuration>
                				 <mainClass>com.baeldung.webjar.WebjarsdemoApplication</mainClass>
+							 <outputDirectory>${basedir}/target/public</outputDirectory>
+								<resources>
+									<resource>
+										<directory>public</directory>
+										<filtering>true</filtering>
+									</resource>
+								</resources>
             			</configuration>
         			</execution>
    				</executions>
 			</plugin>
 		</plugins>
+	
 	</build>
-
+	
 </project>
