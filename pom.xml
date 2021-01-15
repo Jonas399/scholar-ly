@@ -57,6 +57,12 @@
     		<artifactId>derby</artifactId>
     		<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+    		<!-- Actuator to Shutdown Server via HTTP Request -->
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 				
 		
 	</dependencies>

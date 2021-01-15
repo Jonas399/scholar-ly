@@ -1,73 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <style>
-        #loading {
-            display:none
-        }
-    </style>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="hello.js"></script>
-    
-</head>
-<body>
-    
-    <form id="newSearch">
-         <!-- Search -->
-         <div id="name-group" class="form-group">
-            <label for="term">Term</label>
-            <input type="text" class="form-control" name="term" placeholder="">
-            <!-- errors will go here -->
-        </div>
+	<head>
+		<style>
+#loading {
+	display:none
+}
+		</style>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="hello.js"></script>
 
-        <!-- year_begin -->
-        <div id="email-group" class="form-group">
-            <label for="year_begin">Year_Begin</label>
-            <input type="number" class="form-control" name="year_begin" placeholder="">
-            <!-- errors will go here -->
-        </div>
+	</head>
+	<body>
 
-        <!-- year_end -->
-        <div id="superhero-group" class="form-group">
-            <label for="year_end">Year_End</label>
-            <input type="number" class="form-control" name="year_end" placeholder="">
-            <!-- errors will go here -->
-        </div>
+		<div class="topnav">
+			<b class="active">Scrape Google Scholar Search Results</b>
+			<button id="quit" class="btn btn-danger">Quit <span class="fa fa-arrow-right"></span></button>
+		</div>
 
-         <!-- ScraperAPIKey -->
-         <div id="superhero-group" class="form-group">
-            <label for="key">ScraperAPI-Key</label>
-            <input type="text" class="form-control" name="key" placeholder="">
-            <!-- errors will go here -->
-        </div>
+		<form id="newSearch">
+			<!-- Search -->
+			<div id="name-group" class="form-group">
+				<label for="term">Term</label>
+				<input type="text" class="form-control" name="term" placeholder="">
+				<!-- errors will go here -->
+			</div>
 
-        <button type="submit" class="btn btn-success">Submit <span class="fa fa-arrow-right"></span></button>
+			<!-- year_begin -->
+			<div id="email-group" class="form-group">
+				<label for="year_begin">Year_Begin</label>
+				<input type="number" class="form-control" name="year_begin" placeholder="">
+				<!-- errors will go here -->
+			</div>
 
-    </form>
+			<!-- year_end -->
+			<div id="superhero-group" class="form-group">
+				<label for="year_end">Year_End</label>
+				<input type="number" class="form-control" name="year_end" placeholder="">
+				<!-- errors will go here -->
+			</div>
 
-    <div id="loading">
-        loading
-    </div>
-    
-    <table id="targetTable" class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Term</th>
-                <th>HitsPerYear</th>
-                <th>Year_Begin</th>
-                <th>Year_End</th>
-		<th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="list-list"></tbody>
-    </table>    
+			<!-- ScraperAPIKey -->
+			<div id="superhero-group" class="form-group">
+				<label for="key">ScraperAPI-Key</label>
+				<input type="text" class="form-control" name="key" placeholder="">
+				<!-- errors will go here -->
+			</div>
 
-</body>
+		<button type="submit" class="btn btn-success">Submit <span class="fa fa-arrow-right"></span></button>
+
+		</form>
+
+		<div id="loading">
+			loading
+		</div>
+
+		<table id="targetTable" class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Term</th>
+					<th>HitsPerYear</th>
+					<th>Year_Begin</th>
+					<th>Year_End</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="list-list"></tbody>
+		</table>    
+
+	</body>
 </html>
