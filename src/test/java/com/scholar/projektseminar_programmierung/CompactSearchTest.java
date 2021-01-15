@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 import org.mockito.Mock;
 
 import com.scraperapi.ScraperApiClient;
@@ -96,6 +98,39 @@ class CompactSearchTest {
 	void testIfLenghtOfSubSearchArrayIsCorrect() {
 		
 		assertEquals(2, cs.getHitsPerYear().length);
+	}
+	
+	@Test
+	@Order(10)
+	void testIfHitsPerYearGetsSetCorrectly() {
+		int[] newArray = {2010, 2011, 2012};
+		cs.setHitsPerYear(newArray);
+		
+		assertEquals(newArray ,cs.getHitsPerYear());
+	}
+	
+	@Test
+	@Order(11)
+	void testIfTimeStampGetsReturnedCorrectly() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd");  
+		LocalDateTime currentDate = LocalDateTime.now();  
+		
+		assertEquals(dtf.format(currentDate), cs.getTimeStamp());
+	}
+	
+	@Test
+	@Order(12)
+	void testIfTimeStampGetsSetCorrectly() {
+		cs.setTimeStamp("2020.01.10");
+		
+		assertEquals("2020.01.10", cs.getTimeStamp());
+	}
+	
+	@Test
+	@Order(13)
+	void testIfSetApiKeyWorksProperly() {
+		cs.setApiKey("abc");
+		assertEquals("abc", cs.getApiKey());
 	}
 	
 	/*INFO: method scrapeScholarHits not testable, due to inconsistency of google scholar data scrape
