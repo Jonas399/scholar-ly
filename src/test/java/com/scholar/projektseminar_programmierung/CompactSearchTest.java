@@ -2,11 +2,17 @@ package com.scholar.projektseminar_programmierung;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
 import org.mockito.Mock;
 
 import com.scraperapi.ScraperApiClient;
 
+//INFO: It is crucial to keep order of tests correctly --> set/ get methods may fail otherwise
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CompactSearchTest {
 	
 	//INFO: method scrapeScholarHits not testable, due to inconsistency of google scholar data scrape
@@ -20,24 +26,74 @@ class CompactSearchTest {
 	//	
 	//	assertEquals("Artikel Scholar Ungefähr 106.000 Ergebnisse (0,03 Sek.)", cs.scrapeScholarHits("natural AND disaster", 2015, 2015, mockLinkBuilder));
 	//}
-
+	static CompactSearch cs;
+	@BeforeAll
+	static void generateCompactSearch(){
+		cs = new CompactSearch("natural AND disaster", 2015, 2016, "240327b0521b2438b20eeefe95e62f4e");
+	}
+	
 	@Test
+	@Order(1)
+	void testIfSearchTermGetsReturnedCorrectly() {
+	
+		assertEquals("natural AND disaster", cs.getTerm());
+	}
+	
+	@Test
+	@Order(2)
+	void testIfSearchTermGetsSetCorrectly() {
+		cs.setTerm("new Search Term");
+		
+		assertEquals("new Search Term", cs.getTerm());
+	}
+	
+	@Test
+	@Order(3)
+	void testIfYearBeginGetsReturnedCorrectly() {
+
+		assertEquals(2015, cs.getYear_begin());
+	}
+	
+	@Test
+	@Order(4)
+	void testIfYearEndGetsReturnedCorrectly() {
+
+		assertEquals(2016, cs.getYear_end());
+	}
+	
+	@Test
+	@Order(5)
+	void testIfSetYearBeginFunctionsProperly() {
+		
+		cs.setYear_begin(2014);
+		assertEquals(2014, cs.getYear_begin());
+		}
+	
+	@Test
+	@Order(6)
+	void testIfSetYearEndFunctionsProperly() {
+		
+		cs.setYear_end(2019);
+		assertEquals(2019, cs.getYear_end());
+		}
+	
+	@Test
+	@Order(7)
 	void testIfExtractedHitsAreCorrect() {
-		CompactSearch cs = new CompactSearch("natural AND disaster", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
 		
 		assertEquals(106000, cs.extractHits("Artikel Scholar Ungefähr 106.000 Ergebnisse (0,03 Sek.)"));
 	}
 	
 	@Test
+	@Order(8)
 	void testIfExtractedHitsAreCorrect_IfNoResultsAreFound() {
-		CompactSearch cs = new CompactSearch("asdfjkdhsgkjahsdgla", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
 		
 		assertEquals(0, cs.extractHits("Keine ergebnisse"));
 	}
 	
 	@Test
+	@Order(9)
 	void testIfLenghtOfSubSearchArrayIsCorrect() {
-		CompactSearch cs = new CompactSearch("natural AND disaster", 2015, 2016, "240327b0521b2438b20eeefe95e62f4e");
 		
 		assertEquals(2, cs.getHitsPerYear().length);
 	}
@@ -48,6 +104,7 @@ class CompactSearchTest {
 		CompactSearch cs = new CompactSearch("natural AND disaster", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
 			
 	}*/
+
 }
 
 
