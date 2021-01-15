@@ -34,6 +34,9 @@ public class Result {
 	@Column(name="year_end")
 	private int year_end;
 	
+	@Column(name="timestamp")
+	private String timestamp;
+	
 	public Result() {
 		super();
 		System.out.println("Called default constructor");
@@ -44,6 +47,7 @@ public class Result {
 	public Result(@JsonProperty("term") String term, @JsonProperty("year_begin") int year_begin, @JsonProperty("year_end") int year_end, @JsonProperty("key") String key) {
 	    System.out.println("n-args");
 	    CompactSearch temp = new CompactSearch(term,year_begin,year_end, key);
+	    this.timestamp = temp.getTimeStamp();
 	    this.term = temp.getTerm();
 	    this.year_begin = temp.getYear_begin();
 	    this.year_end = temp.getYear_end();
@@ -87,7 +91,13 @@ public class Result {
 		this.year_end = year_end;
 	}
 
+	public String getTimestamp() {
+		return timestamp;
+	}
 	
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	
 	
