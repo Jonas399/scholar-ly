@@ -75,7 +75,6 @@ $(document).ready(function() {
 				$("#discard").click(function (){
 					var url = 'api/v1/results/'+data.id;
 					deleteEntry(url);
-					resetModal();
 					loading.style.display = "none";
 					heading.innerText = "Loading...";
 					div.innerHTML = "";
