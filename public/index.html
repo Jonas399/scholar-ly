@@ -1,81 +1,101 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<style>
-#loading {
-	display:none
-}
-		</style>
+
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" href="style.css">
+
+
+		<!-- - - - - - - - - - - - -->
+		<!-- CSS Styling Libraries -->
+
+		<!-- Bootstrap 3 -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap.min.css">
+
+		<!-- Datatables Bootstrap CSS Extension -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.23/sc-2.0.3/datatables.min.css"/>
+
+		<!-- Styling for this site-->
+		<link rel="stylesheet" href="style.css">
+
+
+		<!-- - - - - - - - - - - - -->
+		<!-- JS Libraries -->
+
+		<!-- JQuery -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-		<script type="text/javasrcipt" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script> 
+
+		<!-- Datatables (Boostrap 3) with Extension: Scroller for virtual rendering  -->
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.23/sc-2.0.3/datatables.min.js"></script>
+
+		<!-- Plotly -->
 		<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+		<!-- JS for site -->
 		<script type="text/javascript" src="hello.js"></script>
 
 	</head>
-	<body>
 
+	<body>
+		<!-- Navabar with quit button  -->
 		<div class="topnav">
 			<b class="active">Scrape Google Scholar Search Results</b>
 			<button id="quit" class="btn btn-danger">Quit <span class="fa fa-arrow-right"></span></button>
 		</div>
 
+		<!-- Form to start Search -->
 		<div class="center">
 			<form  id="newSearch">
+
 				<!-- Search -->
 				<div id="name-group" class="form-group">
 					<label for="term">Term</label>
 					<input type="text" class="form-control" name="term" placeholder="">
-					<!-- errors will go here -->
 				</div>
 
 				<!-- year_begin -->
 				<div id="email-group" class="form-group">
 					<label for="year_begin">Year_Begin</label>
 					<input type="number" class="form-control" name="year_begin" placeholder="">
-					<!-- errors will go here -->
 				</div>
 
 				<!-- year_end -->
 				<div id="superhero-group" class="form-group">
 					<label for="year_end">Year_End</label>
 					<input type="number" class="form-control" name="year_end" placeholder="">
-					<!-- errors will go here -->
 				</div>
 
 				<!-- ScraperAPIKey -->
 				<div id="superhero-group" class="form-group">
 					<label for="key">ScraperAPI-Key</label>
 					<input type="text" class="form-control" name="key" placeholder="">
-					<!-- errors will go here -->
 				</div>
 
+				<!-- Send Button -->
 				<button type="submit" class="btn btn-success">Submit <span class="fa fa-arrow-right"></span></button>
 
 			</form>
 		</div>
 
-		<table id="targetTable" class="table table-hover">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Term</th>
-					<th>HitsPerYear</th>
-					<th>Year_Begin</th>
-					<th>Year_End</th>
-					<th>Date</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody id="list-list"></tbody>
-		</table>    
+		<!-- Table containing results -->
+		<div style="width:80%; margin: auto">
+			<table id="targetTable" class="table table-hover" style="width: 100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Term</th>
+						<th>HitsPerYear</th>
+						<th>Year_Begin</th>
+						<th>Year_End</th>
+						<th>Date</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="list-list"></tbody>
+			</table>    
+		</div>
 
+		<!-- Modal for displaying table column -->
 		<div id="myModal" class="modal">
 			<div class="modal-content">
 				<span class="close">&times;</span>
@@ -84,6 +104,7 @@
 			</div>
 		</div>
 
+		<!-- Modal for displaying information during/after scrape -->
 		<div id="loading" class="modal">
 			<div class="modal-content">
 				<h4>Loading...</h4>

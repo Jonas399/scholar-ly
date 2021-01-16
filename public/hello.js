@@ -1,17 +1,4 @@
-var table;
-
-$(document).ajaxStart(function() {
-	//$("#loading").show();
-	//var loading = document.getElementById("loading");
-	//loading.style.display = "block";
-
-
-});
-
-$( document ).ajaxStop(function() {
-	//$("#loading").hide();
-	
-});
+var table; //Need this global to access contents of table
 
 $(document).ready(function() {
 
@@ -24,15 +11,19 @@ $(document).ready(function() {
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 		modal.style.display = "none";
+		document.getElementById("targetTable").style.position = "absolute";
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 		if (event.target == modal) {
 			modal.style.display = "none";
+			document.getElementById("targetTable").style.position = "absolute";
+
 		}
 	}
 
+	//Always load datatable contents when page is ready
 	loadDatatables();
 
 
@@ -41,18 +32,21 @@ $(document).ready(function() {
 	$('form').submit(function(event) {
 
 		// get the form data
-		// there are many ways to get this data using jQuery (you can use the class or id also)
 		var formData = {
 			'term'              : $('input[name=term]').val(),
 			'year_begin'        : $('input[name=year_begin]').val(),
 			'year_end'    		: $('input[name=year_end]').val(),
 			'key'				: $('input[name=key]').val()
 		};
+
+		//Setting up content for modal to display info during and after post request
 		var loading = document.getElementById("loading");
+		document.getElementById("targetTable").style.position = "";
 		loading.style.display = "block";
 		var heading = loading.children[0].children[0];
 		var div = loading.children[0].children[1];
 		var years = ""; 
+
 		// process the form
 		$.ajax({
 			type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
@@ -78,9 +72,11 @@ $(document).ready(function() {
 				$("#discard").click(function (){
 					var url = 'api/v1/results/'+data.id;
 					deleteEntry(url);
+					resetModal();
 					loading.style.display = "none";
 					heading.innerText = "Loading...";
 					div.innerHTML = "";
+					document.getElementById("targetTable").style.position = "absolute";
 				});
 
 				$("#save").click(function () {
@@ -88,9 +84,8 @@ $(document).ready(function() {
 					loading.style.display = "none";
 					heading.innerText = "Loading...";
 					div.innerHTML = "";
-
+					document.getElementById("targetTable").style.position = "absolute";
 				});
-				//loadDatatables();
 			},
 			error: function( jqXhr, textStatus, errorThrown ){
 				console.log(errorThrown);
@@ -101,24 +96,17 @@ $(document).ready(function() {
 					loading.style.display = "none";				
 					heading.innerText = "Loading...";
 					div.innerHTML = "";
+					document.getElementById("targetTable").style.position = "absolute";
 				});
 			}
 
 		});
-		// using the done promise callback
-		/*.done(function(data) {
-
-		// log data to the console so we can see
-		console.log(data);
-				loadDatatables();
-		// here we will handle errors and validation messages
-	    });*/
-
 		// stop the form from submitting the normal way and refreshing the page
 		event.preventDefault();
 	});
 
 
+	//Server shutdown functionality
 	$('.topnav').on('click', '#quit',function () {
 		console.log("Quitting...");
 		$.ajax({
@@ -148,9 +136,9 @@ $(document).ready(function() {
 	});
 
 
-
-
+	//Click on column shows info in modal
 	$('#targetTable tbody').on('click', 'tr', function () {
+		document.getElementById("targetTable").style.position = "";
 		var row = $(this);
 		var data = table.row(row).data();
 		console.log(data);
@@ -167,16 +155,18 @@ $(document).ready(function() {
 			"-" + data.year_end + ", Date: " + data.timestamp + ".<hr>"+
 			years + "<hr>" + 
 			'<div id="plot"></div>';
-		var trace1 = {
-			x: eachYear,
-			y: data.hitsPerYear,
-			type: 'scatter'
-		};
+		if(data.hitsPerYear.length > 1) {
+			var trace1 = {
+				x: eachYear,
+				y: data.hitsPerYear,
+				name: 'Hits per Year',
+				type: 'scatter'
+			};
 
-		var results = [trace1];
+			var results = [trace1];
 
-		Plotly.newPlot('plot', results);
-
+			Plotly.newPlot('plot', results);
+		}
 
 
 		modal.style.display = "block";
@@ -187,6 +177,7 @@ $(document).ready(function() {
 });
 
 
+//Function do load data via ajax http request into databales
 function loadDatatables() {
 	$.ajax({
 
@@ -198,9 +189,9 @@ function loadDatatables() {
 			table =	$('#targetTable').DataTable( {
 				destroy: true, 
 				dom: 'Bfrtip',  
-				buttons: [
-					'csv','pdf'
-				],   
+				scrollY:        200,
+				deferRender:    true,
+				scroller:       true,
 				data: data,                         
 				columns: [
 
@@ -217,6 +208,7 @@ function loadDatatables() {
 	});
 }
 
+//Function to delete an entry
 function deleteEntry(url) {
 	$.ajax({
 		url: url,

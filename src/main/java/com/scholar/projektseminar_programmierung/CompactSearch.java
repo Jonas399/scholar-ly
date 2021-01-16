@@ -71,7 +71,7 @@ public class CompactSearch {
 		this.term = term;
 		this.year_begin = year_begin;
 		this.year_end = year_end;
-		this.timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
+		this.timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		System.out.println(timeStamp +": New Search");
 		System.out.println("Term: "+this.getTerm()+"; YearBegin: "+this.getYear_begin()+"; YearEnd: "+this.getYear_end()+";");
 		this.client = this.initClient(key);
