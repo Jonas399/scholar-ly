@@ -5,7 +5,7 @@ public class LinkBuilder {
 	public String buildLink(String searchTerm,int year_begin, int year_end) {
 		//beginString and endString are consistent for standard search
 		//TODO: Add possibility to add time aspect to search --> other string format
-		String beginString =  "http://scholar.google.de/scholar?hl=de&as_sdt=0%2C5&q=";
+		String beginString =  "http://scholar.google.com/scholar?hl=de&as_sdt=0%2C5&q=";
 	    String midString =	"&hl=de&as_sdt=0%2C5&as_";
 	    String yearLow = "ylo=";
 	    String betweenYear = "&as_";

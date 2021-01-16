@@ -87,7 +87,7 @@ public class CompactSearch {
 		return tempClient;
 	}
 	
-	static LinkBuilder linkBuilder = new LinkBuilder();
+	//static LinkBuilder linkBuilder = new LinkBuilder();
 	
 	public String scrapeScholarHits(String term, int year_begin, int year_end, LinkBuilder lb) {
 		
@@ -99,8 +99,13 @@ public class CompactSearch {
 		try  {
 			//System.out.println("Delaying search by " + wait + " seconds to avoid bot detection.");
 			//Thread.sleep(wait*1000);
+			//Thread.sleep(1000);
 			Unirest.config().reset();
-			String html = this.client.get(url+"&country_code=us").result();
+			Unirest.config().verifySsl(false); //To prevent unirest from rejecting self-signed certificate (otherwise faulty scrapes)
+			//Thread.sleep(1000);
+			//String html = this.client.get(url+"&country_code=us").result();
+			String html = this.client.get(url).result();
+			//Thread.sleep(1000);
 			
 			//Debugging: Print String to file so we can see what was scraped:
 			PrintWriter out = new PrintWriter("scrape.html");
@@ -131,13 +136,21 @@ public class CompactSearch {
 	}
 	
 	public void performSubSearches() {
+		LinkBuilder lb = new LinkBuilder();
 		//Init array holding hits per year
 		int difference = this.year_end - this.year_begin + 1;
 		int[] tempInt = new int[difference];
 		this.hitsPerYear = tempInt;
 		for(int i = this.year_end; i>=this.year_begin; i--) {
 			int arrIdx = this.year_end-i;
-			this.hitsPerYear[arrIdx] = this.extractHits(scrapeScholarHits(this.term,i,i,linkBuilder));
+			int hits = -1;
+			
+			//Preventing obviously faulty scrapes (tests have shown ~5% probability of hits being 0 for one year)
+			while(hits <= 0) {
+				hits = this.extractHits(scrapeScholarHits(this.term,i,i,lb));
+			}
+			
+			this.hitsPerYear[arrIdx] = hits;
 			System.out.println("Hits for "+i+": "+this.hitsPerYear[arrIdx]);
 		}
 	}
@@ -148,7 +161,7 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("machine learning",2000,2020,"240327b0521b2438b20eeefe95e62f4e");		
+		CompactSearch s1 = new CompactSearch("deep learning",2000,2015,"240327b0521b2438b20eeefe95e62f4e");		
 	}
 	
 }

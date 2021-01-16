@@ -31,6 +31,9 @@ $(document).ready(function() {
 	// process the form
 	$('form').submit(function(event) {
 
+		// stop the form from submitting the normal way and refreshing the page
+		event.preventDefault();
+
 		// get the form data
 		var formData = {
 			'term'              : $('input[name=term]').val(),
@@ -53,7 +56,7 @@ $(document).ready(function() {
 			contentType	: 'application/json',
 			url         : '/api/v1/results', // the url where we want to POST
 			data        : JSON.stringify(formData), // our data object
-			dataType    : 'json', // what type of data do we expect back from the server
+			dataType    : 'JSON', // what type of data do we expect back from the server
 			encode          : true,
 
 			success: function( data, textStatus, jQxhr ){
@@ -89,8 +92,11 @@ $(document).ready(function() {
 			},
 			error: function( jqXhr, textStatus, errorThrown ){
 				console.log(errorThrown);
+				console.log(textStatus);
+				console.log(jqXhr);
 				heading.innerText = "Error";
-				div.innerHTML = "An error occurred. Please restart the search. <hr>" +
+				div.innerHTML = "An error occurred. Please restart the search: <hr>" +
+					jqXhr.responseText + "<hr>" +
 					'<button id="agree" class="btn btn-warning">Ok</button>';
 				$("#agree").click(function (){
 					loading.style.display = "none";				
@@ -101,8 +107,6 @@ $(document).ready(function() {
 			}
 
 		});
-		// stop the form from submitting the normal way and refreshing the page
-		event.preventDefault();
 	});
 
 
