@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scholar.projektseminar_programmierung.CompactSearch;
+import com.scholar.projektseminar_programmierung.LinkBuilder;
 
 
 
@@ -43,11 +44,12 @@ public class Result {
 		
 	}
 	
-
+	
 	@JsonCreator
 	public Result(@JsonProperty("term") String term, @JsonProperty("year_begin") int year_begin, @JsonProperty("year_end") int year_end, @JsonProperty("key") String key) {
 	    System.out.println("n-args");
-	    CompactSearch temp = new CompactSearch(term,year_begin,year_end, key);
+		LinkBuilder linkBuilder = new LinkBuilder();
+	    CompactSearch temp = new CompactSearch(term,year_begin,year_end, key, linkBuilder);
 	    this.timestamp = temp.getTimeStamp();
 	    this.term = temp.getTerm();
 	    this.year_begin = temp.getYear_begin();

@@ -1,6 +1,8 @@
 package com.scholar.projektseminar_programmierung;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
@@ -29,9 +31,13 @@ class CompactSearchTest {
 	//	assertEquals("Artikel Scholar Ungefähr 106.000 Ergebnisse (0,03 Sek.)", cs.scrapeScholarHits("natural AND disaster", 2015, 2015, mockLinkBuilder));
 	//}
 	static CompactSearch cs;
+	
+	static LinkBuilder mockLinkBuilder = mock(LinkBuilder.class);
+	
 	@BeforeAll
 	static void generateCompactSearch(){
-		cs = new CompactSearch("natural AND disaster", 2015, 2016, "240327b0521b2438b20eeefe95e62f4e");
+		when(mockLinkBuilder.buildLink("natural AND disaster", 2015, 2015)).thenReturn("http://scholar.google.de/scholar?hl=de&as_sdt=0%2C5&q=natural+AND+disaster&hl=de&as_sdt=0%2C5&as_ylo=2015&as_yhi=2015");
+		cs = new CompactSearch("natural AND disaster", 2015, 2015, "69de02736440f3f2252629653b808be1", mockLinkBuilder);
 	}
 	
 	@Test
@@ -60,7 +66,7 @@ class CompactSearchTest {
 	@Order(4)
 	void testIfYearEndGetsReturnedCorrectly() {
 
-		assertEquals(2016, cs.getYear_end());
+		assertEquals(2015, cs.getYear_end());
 	}
 	
 	@Test
@@ -97,7 +103,7 @@ class CompactSearchTest {
 	@Order(9)
 	void testIfLenghtOfSubSearchArrayIsCorrect() {
 		
-		assertEquals(2, cs.getHitsPerYear().length);
+		assertEquals(1, cs.getHitsPerYear().length);
 	}
 	
 	@Test
@@ -112,7 +118,7 @@ class CompactSearchTest {
 	@Test
 	@Order(11)
 	void testIfTimeStampGetsReturnedCorrectly() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime currentDate = LocalDateTime.now();  
 		
 		assertEquals(dtf.format(currentDate), cs.getTimeStamp());
