@@ -148,7 +148,7 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("asdfjkdhsgkjahsdgla",2019,2020,"240327b0521b2438b20eeefe95e62f4e");		
+		CompactSearch s1 = new CompactSearch("machine learning",2000,2020,"240327b0521b2438b20eeefe95e62f4e");		
 	}
 	
 }

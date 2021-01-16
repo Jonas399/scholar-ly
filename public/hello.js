@@ -99,6 +99,8 @@ $(document).ready(function() {
 					'<button id="agree" class="btn btn-warning">Ok</button>';
 				$("#agree").click(function (){
 					loading.style.display = "none";				
+					heading.innerText = "Loading...";
+					div.innerHTML = "";
 				});
 			}
 
@@ -155,12 +157,26 @@ $(document).ready(function() {
 		var modal_content = document.querySelector(".modal-content");
 		var div = modal_content.children[2];
 		var years = ""; 
+		var eachYear = [];
 		for(i=data.hitsPerYear.length-1; i>=0; i--) {
 			years += data.year_end-i + ": " + data.hitsPerYear[i] + " hits" + "<br>";
+			eachYear.push(data.year_begin+i);
+
 		}
 		div.innerHTML = "Term: " + data.term + ", Period:  " + data.year_begin +
 			"-" + data.year_end + ", Date: " + data.timestamp + ".<hr>"+
-			years + "<hr>";
+			years + "<hr>" + 
+			'<div id="plot"></div>';
+		var trace1 = {
+			x: eachYear,
+			y: data.hitsPerYear,
+			type: 'scatter'
+		};
+
+		var results = [trace1];
+
+		Plotly.newPlot('plot', results);
+
 
 
 		modal.style.display = "block";
