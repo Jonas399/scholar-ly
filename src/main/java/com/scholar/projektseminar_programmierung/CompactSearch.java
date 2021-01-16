@@ -21,6 +21,7 @@ public class CompactSearch {
 	private String timeStamp;
 	private ScraperApiClient client;
 	private String apiKey;
+	private static LinkBuilder linkBuilder;
 	
 	public String getTerm() {
 		return term;
@@ -66,7 +67,7 @@ public class CompactSearch {
 	}
 	
 	
-	public CompactSearch(String term, int year_begin, int year_end, String key) {
+	public CompactSearch(String term, int year_begin, int year_end, String key, LinkBuilder linkBuilder) {
 		super();
 		this.term = term;
 		this.year_begin = year_begin;
@@ -76,7 +77,7 @@ public class CompactSearch {
 		System.out.println("Term: "+this.getTerm()+"; YearBegin: "+this.getYear_begin()+"; YearEnd: "+this.getYear_end()+";");
 		this.client = this.initClient(key);
 		//this.apiKey = apiKey;
-		this.performSubSearches();
+		this.performSubSearches(linkBuilder);
 		this.buildCSV();
 	}
 	
@@ -135,8 +136,7 @@ public class CompactSearch {
 		}
 	}
 	
-	public void performSubSearches() {
-		LinkBuilder lb = new LinkBuilder();
+	public void performSubSearches(LinkBuilder lb) {
 		//Init array holding hits per year
 		int difference = this.year_end - this.year_begin + 1;
 		int[] tempInt = new int[difference];
@@ -161,7 +161,7 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("deep learning",2000,2015,"240327b0521b2438b20eeefe95e62f4e");		
+		CompactSearch s1 = new CompactSearch("deep learning",2000,2015,"69de02736440f3f2252629653b808be1", linkBuilder);		
 	}
 	
 }
