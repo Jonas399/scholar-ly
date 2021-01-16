@@ -43,6 +43,7 @@ public class Result {
 		
 	}
 	
+
 	@JsonCreator
 	public Result(@JsonProperty("term") String term, @JsonProperty("year_begin") int year_begin, @JsonProperty("year_end") int year_end, @JsonProperty("key") String key) {
 	    System.out.println("n-args");
