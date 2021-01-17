@@ -127,9 +127,14 @@ public class CompactSearch {
 			String[] splitArray = scholarHits.split("\\s+");
 			String temp = "0";
 			if(splitArray.length >= 4) {
-			temp = splitArray[3].replace(".","");
-			}
-			result = Integer.parseInt(temp);
+					temp = splitArray[3].replace(".","");
+					try {
+						result = Integer.parseInt(temp);
+					} catch (NumberFormatException e) {
+						temp = splitArray[2].replace(",", "");
+						result = Integer.parseInt(temp);
+					}		
+			} 
 			return result;
 		} catch (PatternSyntaxException ex) {
 			return -1;
@@ -161,7 +166,8 @@ public class CompactSearch {
 	}
 	
 	public static void main(String[] args) {
-		CompactSearch s1 = new CompactSearch("deep learning",2000,2015,"69de02736440f3f2252629653b808be1", linkBuilder);		
+		LinkBuilder lb = new LinkBuilder();
+		CompactSearch s1 = new CompactSearch("golang",2006,2006,"69de02736440f3f2252629653b808be1", lb);		
 	}
 	
 }
