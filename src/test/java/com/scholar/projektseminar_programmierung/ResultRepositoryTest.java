@@ -27,7 +27,7 @@ class ResultRepositoryTest {
 	
 	@BeforeAll
 	static void createResult() {
-		result = new Result("natural AND disaster", 2015, 2015, "240327b0521b2438b20eeefe95e62f4e");
+		result = new Result("natural AND disaster", 2015, 2015, "69de02736440f3f2252629653b808be1");
 	}
 	
 	@BeforeEach
