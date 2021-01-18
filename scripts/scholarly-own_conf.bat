@@ -1,0 +1,1 @@
+java -jar projektseminar_programmierung-0.0.1-SNAPSHOT.jar --spring.config.location=optional:conf/spring/application.properties

@@ -149,10 +149,11 @@ public class CompactSearch {
 		for(int i = this.year_end; i>=this.year_begin; i--) {
 			int arrIdx = this.year_end-i;
 			int hits = -1;
-			
+			int cnt = 0;
 			//Preventing obviously faulty scrapes (tests have shown ~5% probability of hits being 0 for one year)
-			while(hits <= 0) {
+			while(hits <= 0 && cnt!=3) {
 				hits = this.extractHits(scrapeScholarHits(this.term,i,i,lb));
+				++cnt;
 			}
 			
 			this.hitsPerYear[arrIdx] = hits;
@@ -167,7 +168,7 @@ public class CompactSearch {
 	
 	public static void main(String[] args) {
 		LinkBuilder lb = new LinkBuilder();
-		CompactSearch s1 = new CompactSearch("golang",2006,2006,"69de02736440f3f2252629653b808be1", lb);		
+		CompactSearch s1 = new CompactSearch("golang",2007,2007,"69de02736440f3f2252629653b808be1", lb);		
 	}
 	
 }

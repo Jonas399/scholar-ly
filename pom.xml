@@ -105,6 +105,48 @@
                         	</resources>
                     	</configuration>
                 	</execution>
+                	<execution>
+                    	<id>copy-resource-two</id>
+                    	<phase>install</phase>
+                    	<goals>
+                        	<goal>copy-resources</goal>
+                    	</goals>
+
+                    	<configuration>
+                        	<outputDirectory>${basedir}/target/conf/spring</outputDirectory>
+                        	<resources>
+                            	<resource>
+                                	<directory>conf/spring</directory>
+                                	<includes>
+                                    	<include>application.properties</include>
+                                	</includes>
+                            	</resource>
+                        	</resources>
+                    	</configuration>
+                	</execution>
+                	
+                	<execution>
+                    	<id>copy-resource-three</id>
+                    	<phase>install</phase>
+                    	<goals>
+                        	<goal>copy-resources</goal>
+                    	</goals>
+
+                    	<configuration>
+                        	<outputDirectory>${basedir}/target</outputDirectory>
+                        	<resources>
+                            	<resource>
+                                	<directory>scripts</directory>
+                                	<includes>
+                                    	<include>scholarly-derby.bat</include>
+                                    	<include>scholarly-own_conf.bat</include>
+                                    	<include>scholarly-postgre.bat</include>
+                                	</includes>
+                            	</resource>
+                        	</resources>
+                    	</configuration>
+                	</execution>
+                	
            		</executions>
         	</plugin>
 			

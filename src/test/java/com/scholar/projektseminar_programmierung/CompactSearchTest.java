@@ -96,7 +96,7 @@ class CompactSearchTest {
 	@Order(8)
 	void testIfExtractedHitsAreCorrect_IfNoResultsAreFound() {
 		
-		assertEquals(0, cs.extractHits("Keine ergebnisse"));
+		assertEquals(-1, cs.extractHits("Keine ergebnisse"));
 	}
 	
 	@Test
