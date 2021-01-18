@@ -130,7 +130,7 @@ public class CompactSearch {
 					temp = splitArray[3].replace(".","");
 					try {
 						result = Integer.parseInt(temp);
-					} catch (NumberFormatException e) {
+					} catch (NumberFormatException e) {		//In case of no "Ungefähr" in div
 						temp = splitArray[2].replace(",", "");
 						result = Integer.parseInt(temp);
 					}		
