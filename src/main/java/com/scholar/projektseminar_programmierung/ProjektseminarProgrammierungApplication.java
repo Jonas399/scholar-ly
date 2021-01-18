@@ -14,7 +14,9 @@ public class ProjektseminarProgrammierungApplication {
 	
 	public static void startBrowser(String url, String os) {
 		try {
-			Runtime runtime = Runtime.getRuntime();
+			Runtime runtime = Runtime.getRuntime(); 
+			
+			//Check operating systems
 			if(os.contains("windows")) {
 				runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
 			}
@@ -37,7 +39,7 @@ public class ProjektseminarProgrammierungApplication {
 		//Open Browser
 		String url = "http://localhost:8080";
 		String myOS = System.getProperty("os.name").toLowerCase();
-		startBrowser(url,myOS);
+		startBrowser(url,myOS); //Start default browser 
 		
 		
 
