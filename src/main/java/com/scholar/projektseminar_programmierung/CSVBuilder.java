@@ -24,13 +24,16 @@ public class CSVBuilder {
 	
 	public void print() {
 		try {
+			
+			//create dummy-file to know path (FileWriter doesnt have member method getAbsolutePath()). File is just dummy for actual file
 			String tempPath = this.fileName+".csv";
-			//create file to know path (FileWriter doesnt have method getAbsolutePath())
 			File f = new File(tempPath);
 			FileWriter writer = new FileWriter(tempPath);
 			
-			//Write Metadata
-			CSVUtils.writeLine(writer, Arrays.asList("SearchTerm", "YearBegin", "YearEnd", "Date"));
+			//Write Metadata in the first two lines of CSV
+			CSVUtils.writeLine(writer, Arrays.asList("SearchTerm", "YearBegin", "YearEnd", "Date")); //Line One
+			
+			//Now Line 2:
 			List<String> meta = new ArrayList<>();
 			meta.add(this.search.getTerm());
 			meta.add(Integer.toString(this.search.getYear_begin()));
@@ -38,25 +41,28 @@ public class CSVBuilder {
 			meta.add(this.search.getTimeStamp());
 			CSVUtils.writeLine(writer,meta);
 			
-			//Write hitsPerYear
-			// Header First
+			//Write hitsPerYear for the next following lines (one line pear year)
+			// Write header first 
 			CSVUtils.writeLine(writer, Arrays.asList("Year","Hits"));
-			//Get HitsPerYear from Search
-			int hitsPerYear[] = this.search.getHitsPerYear();
+			int hitsPerYear[] = this.search.getHitsPerYear(); //Get HitsPerYear from Search
+			
 			for(int i = this.search.getYear_begin();i<=this.search.getYear_end();i++) {
 				List<String> row = new ArrayList<>();
-				//Extract hits for specific Year
-				float hits = hitsPerYear[this.search.getYear_end()-i];
-				row.add(Integer.toString(i));
-				//row.add(Integer.toString(hits));
+				float hits = hitsPerYear[this.search.getYear_end()-i]; //Extract hits for specific Year
+				
+				//now fill rows/lines
+				row.add(Integer.toString(i)); 
 				row.add(Float.toString(hits));
-				CSVUtils.writeLine(writer, row);
+				
+				CSVUtils.writeLine(writer, row); //Write to csv
 			}
 			
 			
 			writer.flush();
 			writer.close();
-			System.out.println("CSV file crated at "+f.getAbsolutePath());
+			
+			System.out.println("CSV file crated at "+f.getAbsolutePath()); //Display info where file was saved
+			
 		} catch(Exception e) {
 			System.out.println(e);
 		}

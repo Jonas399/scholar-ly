@@ -18,6 +18,8 @@ import com.scholar.projektseminar_programmierung.LinkBuilder;
 @Table(name = "result")
 public class Result {
 	
+	
+	//JPA Creates Table result" with the following columns
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
@@ -38,18 +40,25 @@ public class Result {
 	@Column(name="timestamp")
 	private String timestamp;
 	
+	//Default Constructor required for accessing the data (GET Requests)
 	public Result() {
 		super();
-		System.out.println("Called default constructor");
+		System.out.println("Called default constructor"); //Info for devs
 		
 	}
 	
 	
-	@JsonCreator
+	//Constructor for saving a new result. Search is started when this is called.
+	//Data is fed in JSON format
+	@JsonCreator 
 	public Result(@JsonProperty("term") String term, @JsonProperty("year_begin") int year_begin, @JsonProperty("year_end") int year_end, @JsonProperty("key") String key) {
-	    System.out.println("n-args");
-		LinkBuilder linkBuilder = new LinkBuilder();
+	    System.out.println("n-args"); //Info for dev
+		
+	    //Search is started
+	    LinkBuilder linkBuilder = new LinkBuilder();
 	    CompactSearch temp = new CompactSearch(term,year_begin,year_end, key, linkBuilder);
+	    
+	    //Data from search is copied into result
 	    this.timestamp = temp.getTimeStamp();
 	    this.term = temp.getTerm();
 	    this.year_begin = temp.getYear_begin();

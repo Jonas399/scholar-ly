@@ -27,7 +27,7 @@ public class ResultController {
 	@Autowired 
 	public ResultRepository resultRepository;
 	
-	//get results
+	//get all results
 	@GetMapping("results")
 	public List<Result> getAllResult() {
 		return this.resultRepository.findAll(); 
@@ -47,13 +47,7 @@ public class ResultController {
 		return this.resultRepository.save(result);
 	}
 	
-	
-	/*
-	//update result
-	public ResponseEntity<Result> updateResult(@PathVariable(value="id") Long resultId, @Valid @RequestBody)
-	*/
-	
-	//get result by id
+	//delete result by id
 	@DeleteMapping("results/{id}")
 	public Map<String, Boolean> deleteResult(@PathVariable(value="id") Long resultId) throws ResourceNotFoundException {
 		Result result = resultRepository.findById(resultId).orElseThrow(() -> new ResourceNotFoundException("Result not found for this id :: "+resultId));
